@@ -1,0 +1,101 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<includeAll path="db/changelog/" />
+	
+	<changeSet author="abhijit.s"
+		id="create-table-ticket-type-master-17-03-2019">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="ticket_type_master" />
+			</not>
+		</preConditions>
+		<createTable tableName="ticket_type_master">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="type" type="varchar(200)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="abhijit.s" id="loadData-ticket-type-master-17-03-2019" runOnChange="true">
+		<loadUpdateData  encoding="UTF-8"
+			file="db/liquibase/data/ticket_type_master/17-03-2019.csv" quotchar="'" 
+			separator="," tableName="ticket_type_master" primaryKey="id">
+			<column name="id" type="numeric" />
+			<column name="type" type="string" />
+		</loadUpdateData >
+	</changeSet>
+	
+	<changeSet author="abhijit.s"
+		id="create-table-ticket-status-master-17-03-2019">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="ticket_status_master" />
+			</not>
+		</preConditions>
+		<createTable tableName="ticket_status_master">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="status" type="varchar(200)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="abhijit.s" id="loadData-ticket-status-master-17-03-2019" runOnChange="true">
+		<loadUpdateData  encoding="UTF-8"
+			file="db/liquibase/data/ticket_status_master/17-03-2019.csv" quotchar="'" 
+			separator="," tableName="ticket_status_master" primaryKey="id">
+			<column name="id" type="numeric" />
+			<column name="status" type="string" />
+		</loadUpdateData >
+	</changeSet>
+	
+	<changeSet author="abhijit.s"
+		id="create-table-ticket-24-03-2019">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="ticket" />
+			</not>
+		</preConditions>
+		<createTable tableName="ticket">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="project_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="ticket_type" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="ticket_status" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="summary" type="varchar(2000)">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="varchar(10000)">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_on" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="modified_on" type="timestamp">
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="abhijit.s"
+		id="addAutoIncrement-ticket-16-03-2019">
+		<addAutoIncrement columnDataType="bigint"
+			columnName="id" incrementBy="1" startWith="1" 
+			tableName="ticket" />
+	</changeSet>
+</databaseChangeLog>
